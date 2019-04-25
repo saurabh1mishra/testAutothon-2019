@@ -4,7 +4,9 @@
 
     <listeners>
         <listener class-name="Listener.ExtentReport"></listener>
+<!--
         <listener class-name="Listener.RetryListener"></listener>
+-->
     </listeners>
 
     <test name="Run Test Suite to Assert Twitter Page" parallel="instances">
