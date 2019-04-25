@@ -3,6 +3,7 @@ package TestCases;
 import Base.Constant;
 import Base.Device;
 import Base.DriverThreadLocal;
+import Base.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Biographies;
 import model.Twitter.TweetData;
@@ -23,6 +24,8 @@ import static org.toilelibre.libe.curl.Curl.$;
 
 public class TwitterTest extends TestCase {
 
+    ObjectUtils stepinPage;
+    ObjectUtils fileUpload;
     private static org.apache.log4j.Logger log = Logger.getLogger(TwitterTest.class.getName());
     private WebDriver driver;
 
@@ -41,12 +44,15 @@ public class TwitterTest extends TestCase {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://twitter.com/stepin_forum");
-        String name_first = driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[1]/strong")).getText();
-        driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[1]")).click();
 
-        String handle_name_first = driver.findElement(By.xpath("//h2[contains(@class,'ProfileHeaderCard-screenname u-inlineBlock')]/a")).getText();
-        String following_count_first = driver.findElement(By.xpath("//ul[contains(@class,'ProfileNav-list')]/li[2]/a/span[3]")).getText();
-        String followers_count_first = driver.findElement(By.xpath("//ul[contains(@class,'ProfileNav-list')]/li[3]/a/span[3]")).getText();
+        stepinPage = new ObjectUtils(driver, "stepinPage");
+
+        String name_first = stepinPage.getElement("name_first").getText();
+        stepinPage.getElement("account_group").click();
+
+        String handle_name_first = stepinPage.getElement("handle_name_first").getText();
+        String following_count_first = stepinPage.getElement("following_count_first").getText();
+        String followers_count_first = stepinPage.getElement("followers_count_first").getText();;
 
         System.out.println("Name of the first people to follow:" + name_first);
         System.out.println("Handle Name of the first people to follow:" + handle_name_first);
@@ -62,13 +68,13 @@ public class TwitterTest extends TestCase {
 
         driver.navigate().back();
         //To fetch Second profile details
-        String name_second = driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[2]/strong")).getText();
 
-        driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[2]")).click();
+        String name_second = stepinPage.getElement("name_second").getText();
+        stepinPage.getElement("account_group").click();
 
-        String handle_name_second = driver.findElement(By.xpath("//h2[contains(@class,'ProfileHeaderCard-screenname u-inlineBlock')]/a")).getText();
-        String following_count_second = driver.findElement(By.xpath("//ul[contains(@class,'ProfileNav-list')]/li[2]/a/span[3]")).getText();
-        String followers_count_second = driver.findElement(By.xpath("//ul[contains(@class,'ProfileNav-list')]/li[3]/a/span[3]")).getText();
+        String handle_name_second = stepinPage.getElement("handle_name_second").getText();
+        String following_count_second = stepinPage.getElement("following_count_second").getText();
+        String followers_count_second = stepinPage.getElement("followers_count_second").getText();
 
         System.out.println("Name of the first second to follow:" + name_second);
         System.out.println("Handle Name of the second people to follow:" + handle_name_second);
@@ -82,12 +88,12 @@ public class TwitterTest extends TestCase {
         biographiesSec.setFollowing_count(following_count_second);
 
         driver.navigate().back();
-        String name_third = driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[3]/strong")).getText();
-        driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[3]")).click();
+        String name_third = stepinPage.getElement("name_third").getText();
+        stepinPage.getElement("account_group").click();
 
-        String handle_name_third = driver.findElement(By.xpath("//h2[contains(@class,'ProfileHeaderCard-screenname u-inlineBlock')]/a")).getText();
-        String following_count_third = driver.findElement(By.xpath("//ul[contains(@class,'ProfileNav-list')]/li[2]/a/span[3]")).getText();
-        String followers_count_third = driver.findElement(By.xpath("//ul[contains(@class,'ProfileNav-list')]/li[3]/a/span[3]")).getText();
+        String handle_name_third = stepinPage.getElement("handle_name_third").getText();
+        String following_count_third = stepinPage.getElement("following_count_third").getText();
+        String followers_count_third = stepinPage.getElement("followers_count_third").getText();
 
         System.out.println("Name of the first second to follow:" + name_third);
         System.out.println("Handle Name of the second people to follow:" + handle_name_third);
@@ -107,8 +113,10 @@ public class TwitterTest extends TestCase {
         getFilterJsonData();
         generateJson();
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
-        driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/userTest.json");
-        driver.findElement(By.xpath("//input[@value='Press']")).click();
+
+        fileUpload = new ObjectUtils(driver, "fileUpload");
+        fileUpload.getElement("fileBrowse").sendKeys(System.getProperty("user.dir") + "/userTest.json");
+        fileUpload.getElement("btnPress").click();
         String msg = driver.findElement(By.xpath("/html/body/p[1]")).getText();
         Assert.assertEquals(msg, "You've uploaded a file. Your notes on the file were:");
     }
