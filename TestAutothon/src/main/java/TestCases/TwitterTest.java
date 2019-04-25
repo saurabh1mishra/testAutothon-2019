@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import static org.toilelibre.libe.curl.Curl.curl;
 import static org.toilelibre.libe.curl.Curl.$;
 
-public class Login {
+public class TwitterTest {
 
     public static TweetData data;
     public static Tweet finalJson= new Tweet();
@@ -121,11 +121,13 @@ public class Login {
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(".\\user.json");
         driver.findElement(By.xpath("//input[@value='Press']"));
+        driver.quit();
     }
 
     public void genrateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         File fileName=new File(".\\user.json");
+        System.out.println(finalJson.toString());
         objectMapper.writeValue(fileName, finalJson);
     }
 

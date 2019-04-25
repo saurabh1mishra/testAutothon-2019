@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18b020ad-e67c-4ee8-82df-011d196a5132" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TestCases/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TestCases/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/example/Description.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/example/Description.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/example/Entities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/example/Entities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/example/Entities_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/example/Entities_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/example/Medium_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/example/Medium_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/example/Statuses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/example/Statuses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/example/TweetData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/example/TweetData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TestCases/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/mavenRunner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/mavenRunner.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -26,17 +22,21 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/TestCases/Login.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="128" column="32" selection-start-line="128" selection-start-column="32" selection-end-line="128" selection-end-column="32" />
+            <state relative-caret-position="391">
+              <caret line="123" column="22" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/config/mavenRunner.xml">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -133,6 +133,8 @@
         <option value="$PROJECT_DIR$/src/main/java/model/example/Statuses.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/example/Entities_.java" />
         <option value="$PROJECT_DIR$/src/main/java/TestCases/Login.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/mavenRunner.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java" />
       </list>
     </option>
   </component>
@@ -229,8 +231,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.Login">
-    <configuration name="Login" type="TestNG" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="TestNG.TwitterTest">
+    <configuration name="TwitterTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TestAutothon" />
       <extension name="coverage">
         <pattern>
@@ -239,7 +241,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="TestCases" />
-      <option name="MAIN_CLASS_NAME" value="TestCases.Login" />
+      <option name="MAIN_CLASS_NAME" value="TestCases.TwitterTest" />
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
@@ -247,7 +249,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Login.testTwitterAccout" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="TwitterTest.testTwitterAccout" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TestAutothon" />
       <extension name="coverage">
         <pattern>
@@ -256,7 +258,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="TestCases" />
-      <option name="MAIN_CLASS_NAME" value="TestCases.Login" />
+      <option name="MAIN_CLASS_NAME" value="TestCases.TwitterTest" />
       <option name="METHOD_NAME" value="testTwitterAccout" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -267,8 +269,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.Login" />
-        <item itemvalue="TestNG.Login.testTwitterAccout" />
+        <item itemvalue="TestNG.TwitterTest" />
+        <item itemvalue="TestNG.TwitterTest.testTwitterAccout" />
       </list>
     </recent_temporary>
   </component>
@@ -282,17 +284,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556176161677</updated>
-      <workItem from="1556176162956" duration="3619000" />
+      <workItem from="1556176162956" duration="3812000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Login_testTwitterAccout - 2019.04.25 at 12h 53m 33s.xml">
-      <configuration name="Login.testTwitterAccout" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="Login - 2019.04.25 at 12h 55m 16s.xml">
-      <configuration name="Login" configurationId="TestNG" />
-    </history-entry>
     <history-entry file="Login - 2019.04.25 at 12h 56m 42s.xml">
       <configuration name="Login" configurationId="TestNG" />
     </history-entry>
@@ -317,9 +313,15 @@
     <history-entry file="Login - 2019.04.25 at 14h 37m 55s.xml">
       <configuration name="Login" configurationId="TestNG" />
     </history-entry>
+    <history-entry file="Login - 2019.04.25 at 14h 40m 40s.xml">
+      <configuration name="Login" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="TwitterTest - 2019.04.25 at 14h 42m 04s.xml">
+      <configuration name="TwitterTest" configurationId="TestNG" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3619000" />
+    <option name="totallyTimeSpent" value="3812000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="947" extended-state="6" />
@@ -333,15 +335,15 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24969475" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Spring" />
-      <window_info anchor="bottom" id="Terminal" weight="0.27719298" />
+      <window_info anchor="bottom" id="Terminal" weight="0.5251462" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32982457" />
+      <window_info anchor="bottom" id="Version Control" weight="0.32982457" />
+      <window_info anchor="bottom" id="Messages" weight="0.32982457" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29707602" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29707602" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2877193" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -364,16 +366,22 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/TestCases/Login.java</url>
-          <line>128</line>
+          <url>file://$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java</url>
+          <line>129</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/TestCases/Login.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java</url>
           <line>127</line>
           <properties />
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java</url>
+          <line>126</line>
+          <properties />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -506,12 +514,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/config/mavenRunner.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TestCases/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="128" column="32" selection-start-line="128" selection-start-column="32" selection-end-line="128" selection-end-column="32" />
+        <state relative-caret-position="300">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TestCases/TwitterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="123" column="22" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
         </state>
       </provider>
     </entry>

@@ -2,19 +2,9 @@
 
 <suite name="test" verbose="2" parallel="instances" thread-count="20" configfailurepolicy="continue">
 
-<listeners>
-    <!--<listener class-name="Listener.RetryListener"></listener>-->
-</listeners>
-
-<!--<test name="Run Test Execution via factory design patten Suites A">
-    <parameter name="testCaseName" value="testautothon"/>
-    <parameter name="threadsName" value="remotechrome,remotechrome,MobileChome"/>
-    <parameter name="appiumUrl" value="http://127.0.0.1:4723/wd/hub"/>
-    <classes>
-        <class name="Runner.InitFactory"/>
-    </classes>
-</test>-->
-
+<!--<listeners>
+    <listener class-name="Listener.ExtentReport"></listener>
+</listeners>-->
 
 <test name="Run Test Suite to Assert IMDB - WIKI director names" parallel="instances">
     <parameter name="testCaseName" value="TestCasesexample"/>
@@ -23,8 +13,7 @@
     <parameter name="reportPath" value=".//Reports/"/>
     <parameter name="appiumUrl" value="http://127.0.0.1:4723/wd/hub"/>
     <classes>
-        <!--<class name="TestCases.WikiGuiTestCase"/>-->
-        <class name="Runner.InitFactoryWiki"></class>
+        <class name="TestCases.TwitterTest"></class>
     </classes>
 </test>
 
