@@ -14,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Medium_ {
 
     @JsonProperty("w")
-    public Integer w;
+    public Long w;
     @JsonProperty("h")
-    public Integer h;
+    public Long h;
     @JsonProperty("resize")
     public String resize;
 

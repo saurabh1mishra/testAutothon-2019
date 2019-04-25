@@ -9,6 +9,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import model.Biographies;
 import model.Tweet;
+import model.example.Statuses;
 import model.example.TweetData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,7 +29,7 @@ import static org.toilelibre.libe.curl.Curl.$;
 public class Login {
 
     public static TweetData data;
-    public static Tweet finalJson;
+    public static Tweet finalJson= new Tweet();
 
     public void getJson() throws IOException {
         String res = $(
@@ -113,7 +114,10 @@ public class Login {
         biographiesList.add(biographiesSec);
         biographiesList.add(biographiesThird);
         finalJson.setProperties(biographiesList);
+        getJson();
+        getMaxRetweet();
         genrateJson();
+        driver = Device.WEBCHROME.setDriver();
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(".\\user.json");
         driver.findElement(By.xpath("//input[@value='Press']"));
@@ -121,11 +125,31 @@ public class Login {
 
     public void genrateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new File(".\\user.json"), finalJson);
+        File fileName=new File(".\\user.json");
+        objectMapper.writeValue(fileName, finalJson);
     }
 
     public void getMaxRetweet() throws IOException {
 
-        data.getTweetdata().get(0);
+        int Max_Count = 0;
+        int Highest_like = 0;
+        List<Statuses> tweetdata = data.getTweetdata();
+
+        for (Statuses data : tweetdata) {
+            if (Max_Count < data.getRetweetCount()) {
+                Max_Count = data.getRetweetCount();
+            }
+        }
+
+        for (Statuses data : tweetdata) {
+            if (Highest_like < data.getFavoriteCount()) {
+                Highest_like = data.getFavoriteCount();
+            }
+        }
+        System.out.println("Max_Count :"+ Max_Count);
+        System.out.println("Highest_like :"+ Highest_like);
+        finalJson.setTop_retweet_count(Max_Count);
+        finalJson.setTop_like_count(Highest_like);
+
     }
 }
