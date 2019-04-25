@@ -106,6 +106,14 @@ public class TwitterTest extends TestCase {
         finalJson.setBiographies(biographiesList);
         getFilterJsonData();
         generateJson();
+
+        // assert that there are only three biographies
+        Assert.assertEquals(biographiesList.size(),3);
+        //assert 10 hashtags are present
+        int hastags_count = finalJson.getTop_10_hashtag().size();
+        Assert.assertEquals(hastags_count,10);
+
+
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/userTest.json");
         driver.findElement(By.xpath("//input[@value='Press']")).click();
