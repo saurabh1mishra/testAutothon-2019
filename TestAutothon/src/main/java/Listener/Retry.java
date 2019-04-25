@@ -9,7 +9,7 @@ public class Retry implements IRetryAnalyzer {
     private static final Logger log = Logger.getLogger(Retry.class.getSimpleName());
 
     private int retrycount = 0;
-    private static final int MAX_RETRY_COUNT = 2;
+    private static final int MAX_RETRY_COUNT = 1;
 
     //Logic for retrying the test with a particular result status.
     public boolean retry(ITestResult result) {
