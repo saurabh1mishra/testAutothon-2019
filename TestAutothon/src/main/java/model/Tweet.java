@@ -1,9 +1,9 @@
 package model;
 
 
-        import lombok.Data;
+import lombok.Data;
 
-        import java.util.List;
+import java.util.List;
 
 @Data
 public class Tweet {

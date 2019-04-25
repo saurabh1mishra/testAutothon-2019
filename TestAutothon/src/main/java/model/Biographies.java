@@ -7,6 +7,6 @@ public class Biographies {
 
     String name;
     String handel_name;
-    int follower_count;
-    int following_count;
+    String follower_count;
+    String following_count;
 }
