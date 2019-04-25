@@ -57,5 +57,9 @@ public class TestTwitterData {
         System.out.println("Following count of the second people:" + following_count_third);
         System.out.println("Followers of the second people:" + followers_count_third);
         driver.close();
+
+        driver.findElement(By.xpath("//input[@type='file']")).sendKeys("");
+        driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
+        driver.findElement(By.xpath("//input[@value='Press']"));
     }
 }
