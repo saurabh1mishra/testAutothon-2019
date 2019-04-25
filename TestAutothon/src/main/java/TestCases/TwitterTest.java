@@ -3,13 +3,16 @@ package TestCases;
 import Base.Constant;
 import Base.Device;
 import Base.DriverThreadLocal;
+import Listener.ExtentReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.relevantcodes.extentreports.LogStatus;
 import model.Biographies;
 import model.Twitter.TweetData;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -27,10 +30,15 @@ public class TwitterTest extends TestCase {
     private WebDriver driver;
 
     @BeforeSuite
-    public void getJson() throws IOException {
+    public void getJson(ITestContext iTestContext) throws IOException {
+        ExtentReport.test = ExtentReport.reports.startTest(iTestContext.getCurrentXmlTest().getName());
+        ExtentReport.test.log(LogStatus.INFO, iTestContext.getCurrentXmlTest().getName() + "test is started");
+
         String res = $("curl -X GET '" + Constant.TWITTER_ENDPOINT + "?q=" + Constant.PAGE_NAME + "&result_type=recent&count=50&screen_name=" + Constant.PAGE_NAME + "' -H 'Authorization: " + Constant.OAUTH + " -H 'cache-control: no-cache'");
         ObjectMapper objectMapper = new ObjectMapper();
         tweetData = objectMapper.readValue(res, TweetData.class);
+
+        ExtentReport.test.log(LogStatus.INFO,"twitter API data is :"+tweetData.toString());
         log.info(tweetData.toString());
     }
 
@@ -99,26 +107,28 @@ public class TwitterTest extends TestCase {
         biographiesThird.setHandel_name(handle_name_third);
         biographiesThird.setFollower_count(followers_count_third);
         biographiesThird.setFollowing_count(following_count_third);
+
         List<Biographies> biographiesList = new ArrayList<>();
         biographiesList.add(biographiesfirst);
         biographiesList.add(biographiesSec);
         biographiesList.add(biographiesThird);
         finalJson.setBiographies(biographiesList);
+
         getFilterJsonData();
         generateJson();
+
 
         // assert that there are only three biographies
         Assert.assertEquals(biographiesList.size(),3);
         //assert 10 hashtags are present
         int hastags_count = finalJson.getTop_10_hashtag().size();
         Assert.assertEquals(hastags_count,10);
-
-
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/userTest.json");
         driver.findElement(By.xpath("//input[@value='Press']")).click();
         String msg = driver.findElement(By.xpath("/html/body/p[1]")).getText();
         Assert.assertEquals(msg, "You've uploaded a file. Your notes on the file were:");
+        ExtentReport.test.log(LogStatus.PASS,"You've uploaded a file assertion");
     }
 
     @AfterSuite

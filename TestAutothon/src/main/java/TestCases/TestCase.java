@@ -1,6 +1,8 @@
 package TestCases;
 
+import Listener.ExtentReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.relevantcodes.extentreports.LogStatus;
 import model.Tweet;
 import model.Twitter.Statuses;
 import model.Twitter.TweetData;
@@ -20,7 +22,8 @@ public class TestCase {
         File fileName = new File("userTest.json");
         objectMapper.writeValue(fileName, finalJson);
         String jsonInString = objectMapper.writeValueAsString(finalJson);
-        log.info("final josn is >>>\n" + jsonInString);
+        ExtentReport.test.log(LogStatus.INFO,"final josn is \n" + jsonInString);
+        log.info("final josn is >>>\n  " + jsonInString);
     }
 
     void getFilterJsonData() {
@@ -61,6 +64,10 @@ public class TestCase {
         log.info("Max_Count :" + Max_Count);
         log.info("Highest_like :" + Highest_like);
         log.info("Top 10 hashtag Array is :"+ Top_10_hashtagList);
+
+        ExtentReport.test.log(LogStatus.INFO,"Max_Count :" + Max_Count);
+        ExtentReport.test.log(LogStatus.INFO,"Highest_like :" + Highest_like);
+        ExtentReport.test.log(LogStatus.INFO,"Top 10 hashtag Array is :"+ Top_10_hashtagList);
 
         finalJson.setTop_10_hashtag(Top_10_hashtagList);
         finalJson.setTop_retweet_count(Max_Count);
