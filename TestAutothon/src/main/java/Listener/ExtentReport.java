@@ -21,13 +21,11 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class ExtentReport implements ITestListener {
     private static Logger log = Logger.getLogger(ExtentReport.class.getSimpleName());
-    protected static ExtentReports reports;
+    public static ExtentReports reports = new ExtentReports("./Reports/" + new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-ms").format(new Date()) + "reports.html", true);
+
     public static ExtentTest test;
 
     public void onTestStart(ITestResult result) {
-        log.info("test start : "+ result.getTestContext().getCurrentXmlTest().getName());
-        test = reports.startTest(result.getTestContext().getCurrentXmlTest().getName());
-        test.log(LogStatus.INFO, result.getMethod().getMethodName() + "test is started");
     }
 
     public void onTestSuccess(ITestResult result) {
@@ -62,7 +60,6 @@ public class ExtentReport implements ITestListener {
 
     public void onStart(ITestContext context) {
         log.info(" Initializing : "+ context.getCurrentXmlTest().getName());
-        reports = new ExtentReports("./Reports/" + new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-ms").format(new Date()) + "reports.html", true);
     }
 
     public void onFinish(ITestContext context) {

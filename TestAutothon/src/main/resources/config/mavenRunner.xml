@@ -3,18 +3,12 @@
 <suite name="test" verbose="2" parallel="instances" thread-count="20" configfailurepolicy="continue">
 
     <listeners>
-        <!--
-                <listener class-name="Listener.ExtentReport"></listener>
-                    <listener class-name="Listener.RetryListener"></listener>
-                -->
+        <listener class-name="Listener.ExtentReport"></listener>
+        <listener class-name="Listener.RetryListener"></listener>
     </listeners>
 
-    <test name="Run Test Suite to Assert IMDB - WIKI director names" parallel="instances">
-        <parameter name="testCaseName" value="TestCasesexample"/>
-        <parameter name="threadsName" value="remotechrome"/>
-        <parameter name="TestCaseMode" value="API"/>
-        <parameter name="reportPath" value=".//Reports/"/>
-        <parameter name="appiumUrl" value="http://127.0.0.1:4723/wd/hub"/>
+    <test name="Run Test Suite to Assert Twitter Page" parallel="instances">
+        <parameter name="browser" value="webchrome"></parameter>
         <classes>
             <class name="TestCases.TwitterTest"></class>
         </classes>

@@ -142,13 +142,9 @@
             <version>2.0.0</version>
         </dependency>
         <dependency>
-
             <groupId>org.toile-libre.libe</groupId>
-
             <artifactId>curl</artifactId>
-
             <version>LATEST</version>
-
         </dependency>
     </dependencies>
 

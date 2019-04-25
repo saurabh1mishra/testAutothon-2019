@@ -4,14 +4,21 @@ import Base.Constant;
 import Base.Device;
 import Base.DriverThreadLocal;
 import Base.ObjectUtils;
+import Base.GlobalProperties;
+import Listener.ExtentReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.relevantcodes.extentreports.LogStatus;
 import model.Biographies;
+import model.Twitter.Hashtag;
 import model.Twitter.TweetData;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.seleniumhq.jetty9.util.PatternMatcher;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -21,6 +28,9 @@ import java.util.concurrent.TimeUnit;
 
 import static org.toilelibre.libe.curl.Curl.curl;
 import static org.toilelibre.libe.curl.Curl.$;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class TwitterTest extends TestCase {
 
@@ -30,16 +40,27 @@ public class TwitterTest extends TestCase {
     private WebDriver driver;
 
     @BeforeSuite
+    public void initSuite(ITestContext testContext) throws IOException {
+        if (testContext != null)
+            System.getProperties().putAll(testContext.getCurrentXmlTest().getAllParameters());
+        ExtentReport.test = ExtentReport.reports.startTest(testContext.getCurrentXmlTest().getName());
+        ExtentReport.test.log(LogStatus.INFO, testContext.getCurrentXmlTest().getName() + "test is started");
+
+    }
+
+    @BeforeClass
     public void getJson() throws IOException {
         String res = $("curl -X GET '" + Constant.TWITTER_ENDPOINT + "?q=" + Constant.PAGE_NAME + "&result_type=recent&count=50&screen_name=" + Constant.PAGE_NAME + "' -H 'Authorization: " + Constant.OAUTH + " -H 'cache-control: no-cache'");
         ObjectMapper objectMapper = new ObjectMapper();
         tweetData = objectMapper.readValue(res, TweetData.class);
+        ExtentReport.test.log(LogStatus.INFO, "twitter API data is :" + tweetData.toString());
         log.info(tweetData.toString());
     }
 
     @Test
     public void testTwitterAccout() throws IOException {
-        DriverThreadLocal.setDriver(Device.WEBCHROME.setDriver());
+        Device browser=Device.fromString(GlobalProperties.BROWSER.getValue());
+        DriverThreadLocal.setDriver(browser.setDriver());
         this.driver = DriverThreadLocal.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -64,7 +85,6 @@ public class TwitterTest extends TestCase {
         biographiesfirst.setHandel_name(handle_name_first);
         biographiesfirst.setFollower_count(followers_count_first);
         biographiesfirst.setFollowing_count(following_count_first);
-
 
         driver.navigate().back();
         //To fetch Second profile details
@@ -105,20 +125,38 @@ public class TwitterTest extends TestCase {
         biographiesThird.setHandel_name(handle_name_third);
         biographiesThird.setFollower_count(followers_count_third);
         biographiesThird.setFollowing_count(following_count_third);
+
         List<Biographies> biographiesList = new ArrayList<>();
         biographiesList.add(biographiesfirst);
         biographiesList.add(biographiesSec);
         biographiesList.add(biographiesThird);
         finalJson.setBiographies(biographiesList);
+
         getFilterJsonData();
         generateJson();
+
+        // assert that there are only three biographies
+        Assert.assertEquals(biographiesList.size(),3);
+        //assert 10 hashtags are present
+        int hastags_count = finalJson.getTop_10_hashtag().size();
+        Assert.assertEquals(hastags_count,10);
+        ExtentReport.test.log(LogStatus.PASS,"hastags_count array size assertion passed.");
+
+        Pattern p = Pattern.compile("/([a-zA-Z0-9])(?!.*[<>'\"/;`%$&#])(\\s)/i");
+        Matcher m = p.matcher(Top_10_hashtagList.toString());
+        for(int i=0;i<10;i++) {
+            Assert.assertFalse(m.find(0));
+        }
+        ExtentReport.test.log(LogStatus.PASS,"special char & space assertion for hastags_count array Passed.");
+
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
 
         fileUpload = new ObjectUtils(driver, "fileUpload");
         fileUpload.getElement("fileBrowse").sendKeys(System.getProperty("user.dir") + "/userTest.json");
         fileUpload.getElement("btnPress").click();
-        String msg = driver.findElement(By.xpath("/html/body/p[1]")).getText();
+        String msg = fileUpload.getElement("txtMessage").getText();
         Assert.assertEquals(msg, "You've uploaded a file. Your notes on the file were:");
+        ExtentReport.test.log(LogStatus.PASS, "You've uploaded a file assertion");
     }
 
     @AfterSuite

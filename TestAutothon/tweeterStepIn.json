@@ -5,13 +5,13 @@
     "DSTC2019",
     "TestAutothon2019",
     "Contest",
-    "Hyderabad",
-    "EveTechTalk",
     "EveningTalk",
     "STEPINSUMMIT2019",
     "Certified",
     "EventSponsor",
-    "Agenda"
+    "Agenda",
+    "Hyderabad",
+    "EveTechTalk"
   ],
   "biographies": [
     {
@@ -23,13 +23,13 @@
     {
       "name": "vipul kocher",
       "handel_name": "@vipulkocher",
-      "follower_count": "2,933",
-      "following_count": "3,129"
+      "follower_count": "2,934",
+      "following_count": "3,128"
     },
     {
       "name": "Ajay Balamurugadas",
       "handel_name": "@ajay184f",
-      "follower_count": "4,560",
+      "follower_count": "4,561",
       "following_count": "452"
     }
   ]

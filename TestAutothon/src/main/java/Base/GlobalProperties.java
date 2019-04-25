@@ -2,7 +2,7 @@ package Base;
 
 public enum GlobalProperties {
 
-    REPORTPATH("reportPath", "//Reports"), THREADS("threadsName", "REMOTECHROME");
+    REPORTPATH("reportPath", "//Reports"), BROWSER("browser", "REMOTECHROME");
 
     private final String propertyName;
 

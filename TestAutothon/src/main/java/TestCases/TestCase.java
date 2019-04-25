@@ -1,6 +1,8 @@
 package TestCases;
 
+import Listener.ExtentReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.relevantcodes.extentreports.LogStatus;
 import model.Tweet;
 import model.Twitter.Statuses;
 import model.Twitter.TweetData;
@@ -14,13 +16,15 @@ public class TestCase {
     private static org.apache.log4j.Logger log = Logger.getLogger(TwitterTest.class.getName());
     static TweetData tweetData;
     public static Tweet finalJson = new Tweet();
+    public static List<String> Top_10_hashtagList = new ArrayList<>();
 
     void generateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File fileName = new File("userTest.json");
+        File fileName = new File("tweeterStepIn.json");
         objectMapper.writeValue(fileName, finalJson);
         String jsonInString = objectMapper.writeValueAsString(finalJson);
-        log.info("final josn is >>>\n" + jsonInString);
+        ExtentReport.test.log(LogStatus.INFO,"final josn is \n" + jsonInString);
+        log.info("final josn is >>>\n  " + jsonInString);
     }
 
     void getFilterJsonData() {
@@ -45,7 +49,7 @@ public class TestCase {
             }
         }
         List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(hashtagsMap.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+        list.sort(new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return (o2.getValue()).compareTo(o1.getValue());
             }
@@ -53,7 +57,7 @@ public class TestCase {
 
         log.info("sorted HashTag is " + list);
         Iterator<Map.Entry<String, Integer>> listItretor = list.iterator();
-        List<String> Top_10_hashtagList = new ArrayList<>();
+
         for (int i = 0; i < 10; i++) {
             if (listItretor.hasNext())
                 Top_10_hashtagList.add(listItretor.next().getKey());
@@ -61,6 +65,10 @@ public class TestCase {
         log.info("Max_Count :" + Max_Count);
         log.info("Highest_like :" + Highest_like);
         log.info("Top 10 hashtag Array is :"+ Top_10_hashtagList);
+
+        ExtentReport.test.log(LogStatus.INFO,"Max_Count :" + Max_Count);
+        ExtentReport.test.log(LogStatus.INFO,"Highest_like :" + Highest_like);
+        ExtentReport.test.log(LogStatus.INFO,"Top 10 hashtag Array is :"+ Top_10_hashtagList);
 
         finalJson.setTop_10_hashtag(Top_10_hashtagList);
         finalJson.setTop_retweet_count(Max_Count);
