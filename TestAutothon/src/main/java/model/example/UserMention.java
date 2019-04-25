@@ -21,10 +21,10 @@ public class UserMention {
     @JsonProperty("name")
     public String name;
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("id_str")
     public String idStr;
     @JsonProperty("indices")
-    public List<Integer> indices = null;
+    public List<Long> indices = null;
 
 }
