@@ -16,7 +16,7 @@ public class TestCase {
     private static org.apache.log4j.Logger log = Logger.getLogger(TwitterTest.class.getName());
     static TweetData tweetData;
     public static Tweet finalJson = new Tweet();
-    public List<String> Top_10_hashtagList = new ArrayList<>();
+    public static List<String> Top_10_hashtagList = new ArrayList<>();
 
     void generateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();

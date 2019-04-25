@@ -134,15 +134,14 @@ public class TwitterTest extends TestCase {
         //assert 10 hashtags are present
         int hastags_count = finalJson.getTop_10_hashtag().size();
         Assert.assertEquals(hastags_count,10);
+        ExtentReport.test.log(LogStatus.PASS,"hastags_count array size assertion passed.");
 
         Pattern p = Pattern.compile("/([a-zA-Z0-9])(?!.*[<>'\"/;`%$&#])(\\s)/i");
         Matcher m = p.matcher(Top_10_hashtagList.toString());
-
-
         for(int i=0;i<10;i++) {
-            Assert.assertTrue(m.find(0));
+            Assert.assertFalse(m.find(0));
         }
-
+        ExtentReport.test.log(LogStatus.PASS,"special char & space assertion for hastags_count array Passed.");
 
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/userTest.json");
