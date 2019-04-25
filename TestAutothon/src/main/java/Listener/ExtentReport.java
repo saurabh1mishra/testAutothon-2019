@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import Base.DriverThreadLocal;
+import TestCases.TestCase;
+import TestCases.TwitterTest;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -30,7 +32,7 @@ public class ExtentReport implements ITestListener {
 
     public void onTestSuccess(ITestResult result) {
         log.info("test success : "+ result.getTestContext().getCurrentXmlTest().getName());
-        test.log(LogStatus.PASS, result.getTestContext().getCurrentXmlTest().getName()+":"+result.getMethod().getDescription()+ ": test is passed");
+        test.log(LogStatus.PASS, TestCase.finalJson.toString());
     }
 
     public void onTestFailure(ITestResult result) {
