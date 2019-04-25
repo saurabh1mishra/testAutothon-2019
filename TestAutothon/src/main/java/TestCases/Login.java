@@ -30,21 +30,20 @@ public class Login {
     public static TweetData data;
     public static Tweet finalJson;
 
-    public  void getJson() throws IOException {
+    public void getJson() throws IOException {
         String res = $(
                 "curl -X GET 'https://api.twitter.com/1.1/search/tweets.json?q=stepin_forum&result_type=recent&count=50&screen_name=stepin_forum' -H 'Authorization: OAuth oauth_consumer_key=\"3QHsalYXMeQchpOhwZWc2HfrC\",oauth_token=\"1121272893663584256-RoLkgcGZs7caL56l4YrCu9QZBVbmfD\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1556169937\",oauth_nonce=\"z7fyV9pdBwd\",oauth_version=\"1.0\",oauth_signature=\"qTHTOHbIV%2BCPp7nRs%2BWVWkS%2Fdqw%3D'  -H 'cache-control: no-cache'");
         ObjectMapper objectMapper = new ObjectMapper();
-         data = objectMapper.readValue(res, TweetData.class);
+        data = objectMapper.readValue(res, TweetData.class);
     }
 
     @Test
-    public void testTwitterAccout() throws MalformedURLException {
+    public void testTwitterAccout() throws MalformedURLException, IOException {
         WebDriver driver = Device.WEBCHROME.setDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         driver.get("https://twitter.com/stepin_forum");
 
-        //To fetch First profile details
         String name_first = driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[1]/strong")).getText();
 
         driver.findElement(By.xpath("(//span[contains(@class,'account-group-inner')])[1]")).click();
@@ -64,7 +63,6 @@ public class Login {
         biographiesfirst.setHandel_name(handle_name_first);
         biographiesfirst.setFollower_count(followers_count_first);
         biographiesfirst.setFollowing_count(following_count_first);
-
 
 
         driver.navigate().back();
@@ -115,11 +113,19 @@ public class Login {
         biographiesList.add(biographiesSec);
         biographiesList.add(biographiesThird);
         finalJson.setProperties(biographiesList);
-
+        genrateJson();
+        driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
+        driver.findElement(By.xpath("//input[@type='file']")).sendKeys(".\\user.json");
+        driver.findElement(By.xpath("//input[@value='Press']"));
     }
 
-    public  void genrateJson() throws IOException {
+    public void genrateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(new File(".\\user.json"), finalJson);
+    }
+
+    public void getMaxRetweet() throws IOException {
+
+        data.getTweetdata().get(0);
     }
 }
