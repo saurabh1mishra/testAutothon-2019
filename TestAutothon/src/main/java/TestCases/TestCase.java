@@ -16,6 +16,7 @@ public class TestCase {
     private static org.apache.log4j.Logger log = Logger.getLogger(TwitterTest.class.getName());
     static TweetData tweetData;
     public static Tweet finalJson = new Tweet();
+    public List<String> Top_10_hashtagList = new ArrayList<>();
 
     void generateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,7 +57,7 @@ public class TestCase {
 
         log.info("sorted HashTag is " + list);
         Iterator<Map.Entry<String, Integer>> listItretor = list.iterator();
-        List<String> Top_10_hashtagList = new ArrayList<>();
+
         for (int i = 0; i < 10; i++) {
             if (listItretor.hasNext())
                 Top_10_hashtagList.add(listItretor.next().getKey());

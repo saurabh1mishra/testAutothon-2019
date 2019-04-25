@@ -150,6 +150,13 @@
             <version>LATEST</version>
 
         </dependency>
+
+        <dependency>
+            <groupId>org.cthul</groupId>
+            <artifactId>cthul-matchers</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -7,10 +7,12 @@ import Listener.ExtentReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
 import model.Biographies;
+import model.Twitter.Hashtag;
 import model.Twitter.TweetData;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.seleniumhq.jetty9.util.PatternMatcher;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
@@ -23,6 +25,9 @@ import java.util.concurrent.TimeUnit;
 
 import static org.toilelibre.libe.curl.Curl.curl;
 import static org.toilelibre.libe.curl.Curl.$;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class TwitterTest extends TestCase {
 
@@ -123,6 +128,16 @@ public class TwitterTest extends TestCase {
         //assert 10 hashtags are present
         int hastags_count = finalJson.getTop_10_hashtag().size();
         Assert.assertEquals(hastags_count,10);
+
+        Pattern p = Pattern.compile("/([a-zA-Z0-9])(?!.*[<>'\"/;`%$&#])(\\s)/i");
+        Matcher m = p.matcher(Top_10_hashtagList.toString());
+
+
+        for(int i=0;i<10;i++) {
+            Assert.assertTrue(m.find(0));
+        }
+
+
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/userTest.json");
         driver.findElement(By.xpath("//input[@value='Press']")).click();
