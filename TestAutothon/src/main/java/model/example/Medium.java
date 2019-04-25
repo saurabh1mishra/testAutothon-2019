@@ -7,22 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "id_str",
-    "indices",
-    "media_url",
-    "media_url_https",
-    "url",
-    "display_url",
-    "expanded_url",
-    "type",
-    "sizes"
-})
+
 public class Medium {
 
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("id_str")
     public String idStr;
     @JsonProperty("indices")

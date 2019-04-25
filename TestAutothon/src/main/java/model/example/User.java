@@ -52,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class User {
 
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("id_str")
     public String idStr;
     @JsonProperty("name")
@@ -70,11 +70,11 @@ public class User {
     @JsonProperty("protected")
     public Boolean _protected;
     @JsonProperty("followers_count")
-    public Integer followersCount;
+    public Long followersCount;
     @JsonProperty("friends_count")
-    public Integer friendsCount;
+    public Long friendsCount;
     @JsonProperty("listed_count")
-    public Integer listedCount;
+    public Long listedCount;
     @JsonProperty("created_at")
     public String createdAt;
     @JsonProperty("favourites_count")
