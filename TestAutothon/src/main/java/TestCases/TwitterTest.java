@@ -75,10 +75,10 @@ public class TwitterTest extends TestCase {
         String following_count_first = stepinPage.getElement("following_count_first").getText();
         String followers_count_first = stepinPage.getElement("followers_count_first").getText();;
 
-        System.out.println("Name of the first people to follow:" + name_first);
-        System.out.println("Handle Name of the first people to follow:" + handle_name_first);
-        System.out.println("Following count of the first people:" + following_count_first);
-        System.out.println("Followers of the first people:" + followers_count_first);
+        log.info("Name of the first people to follow:" + name_first);
+        log.info("Handle Name of the first people to follow:" + handle_name_first);
+        log.info("Following count of the first people:" + following_count_first);
+        log.info("Followers of the first people:" + followers_count_first);
 
         Biographies biographiesfirst = new Biographies();
         biographiesfirst.setName(name_first);
@@ -88,18 +88,19 @@ public class TwitterTest extends TestCase {
 
         driver.navigate().back();
         //To fetch Second profile details
-
         String name_second = stepinPage.getElement("name_second").getText();
         stepinPage.getElement("account_group").click();
+
 
         String handle_name_second = stepinPage.getElement("handle_name_second").getText();
         String following_count_second = stepinPage.getElement("following_count_second").getText();
         String followers_count_second = stepinPage.getElement("followers_count_second").getText();
 
-        System.out.println("Name of the first second to follow:" + name_second);
-        System.out.println("Handle Name of the second people to follow:" + handle_name_second);
-        System.out.println("Following count of the second people:" + following_count_second);
-        System.out.println("Followers of the second people:" + followers_count_second);
+
+        log.info("Name of the first second to follow:" + name_second);
+        log.info("Handle Name of the second people to follow:" + handle_name_second);
+        log.info("Following count of the second people:" + following_count_second);
+        log.info("Followers of the second people:" + followers_count_second);
 
         Biographies biographiesSec = new Biographies();
         biographiesSec.setName(name_second);
@@ -115,10 +116,10 @@ public class TwitterTest extends TestCase {
         String following_count_third = stepinPage.getElement("following_count_third").getText();
         String followers_count_third = stepinPage.getElement("followers_count_third").getText();
 
-        System.out.println("Name of the first second to follow:" + name_third);
-        System.out.println("Handle Name of the second people to follow:" + handle_name_third);
-        System.out.println("Following count of the second people:" + following_count_third);
-        System.out.println("Followers of the second people:" + followers_count_third);
+        log.info("Name of the first second to follow:" + name_third);
+        log.info("Handle Name of the second people to follow:" + handle_name_third);
+        log.info("Following count of the second people:" + following_count_third);
+        log.info("Followers of the second people:" + followers_count_third);
 
         Biographies biographiesThird = new Biographies();
         biographiesThird.setName(name_third);
@@ -150,9 +151,8 @@ public class TwitterTest extends TestCase {
         ExtentReport.test.log(LogStatus.PASS,"special char & space assertion for hastags_count array Passed.");
 
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
-
         fileUpload = new ObjectUtils(driver, "fileUpload");
-        fileUpload.getElement("fileBrowse").sendKeys(System.getProperty("user.dir") + "/userTest.json");
+        fileUpload.getElement("fileBrowse").sendKeys(System.getProperty("user.dir") + "/tweeterStepIn.json");
         fileUpload.getElement("btnPress").click();
         String msg = fileUpload.getElement("txtMessage").getText();
         Assert.assertEquals(msg, "You've uploaded a file. Your notes on the file were:");
