@@ -8,6 +8,7 @@
     </listeners>
 
     <test name="Run Test Suite to Assert Twitter Page" parallel="instances">
+        <parameter name="browser" value="webchrome"></parameter>
         <classes>
             <class name="TestCases.TwitterTest"></class>
         </classes>

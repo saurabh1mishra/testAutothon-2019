@@ -3,6 +3,7 @@ package TestCases;
 import Base.Constant;
 import Base.Device;
 import Base.DriverThreadLocal;
+import Base.GlobalProperties;
 import Listener.ExtentReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
@@ -16,6 +17,7 @@ import org.seleniumhq.jetty9.util.PatternMatcher;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -35,21 +37,27 @@ public class TwitterTest extends TestCase {
     private WebDriver driver;
 
     @BeforeSuite
-    public void getJson(ITestContext iTestContext) throws IOException {
-        ExtentReport.test = ExtentReport.reports.startTest(iTestContext.getCurrentXmlTest().getName());
-        ExtentReport.test.log(LogStatus.INFO, iTestContext.getCurrentXmlTest().getName() + "test is started");
+    public void initSuite(ITestContext testContext) throws IOException {
+        if (testContext != null)
+            System.getProperties().putAll(testContext.getCurrentXmlTest().getAllParameters());
+        ExtentReport.test = ExtentReport.reports.startTest(testContext.getCurrentXmlTest().getName());
+        ExtentReport.test.log(LogStatus.INFO, testContext.getCurrentXmlTest().getName() + "test is started");
 
+    }
+
+    @BeforeClass
+    public void getJson() throws IOException {
         String res = $("curl -X GET '" + Constant.TWITTER_ENDPOINT + "?q=" + Constant.PAGE_NAME + "&result_type=recent&count=50&screen_name=" + Constant.PAGE_NAME + "' -H 'Authorization: " + Constant.OAUTH + " -H 'cache-control: no-cache'");
         ObjectMapper objectMapper = new ObjectMapper();
         tweetData = objectMapper.readValue(res, TweetData.class);
-
-        ExtentReport.test.log(LogStatus.INFO,"twitter API data is :"+tweetData.toString());
+        ExtentReport.test.log(LogStatus.INFO, "twitter API data is :" + tweetData.toString());
         log.info(tweetData.toString());
     }
 
     @Test
     public void testTwitterAccout() throws IOException {
-        DriverThreadLocal.setDriver(Device.WEBCHROME.setDriver());
+        Device browser=Device.fromString(GlobalProperties.BROWSER.getValue());
+        DriverThreadLocal.setDriver(browser.setDriver());
         this.driver = DriverThreadLocal.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -71,7 +79,6 @@ public class TwitterTest extends TestCase {
         biographiesfirst.setHandel_name(handle_name_first);
         biographiesfirst.setFollower_count(followers_count_first);
         biographiesfirst.setFollowing_count(following_count_first);
-
 
         driver.navigate().back();
         //To fetch Second profile details
@@ -122,7 +129,6 @@ public class TwitterTest extends TestCase {
         getFilterJsonData();
         generateJson();
 
-
         // assert that there are only three biographies
         Assert.assertEquals(biographiesList.size(),3);
         //assert 10 hashtags are present
@@ -143,7 +149,7 @@ public class TwitterTest extends TestCase {
         driver.findElement(By.xpath("//input[@value='Press']")).click();
         String msg = driver.findElement(By.xpath("/html/body/p[1]")).getText();
         Assert.assertEquals(msg, "You've uploaded a file. Your notes on the file were:");
-        ExtentReport.test.log(LogStatus.PASS,"You've uploaded a file assertion");
+        ExtentReport.test.log(LogStatus.PASS, "You've uploaded a file assertion");
     }
 
     @AfterSuite
