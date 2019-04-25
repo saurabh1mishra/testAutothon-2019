@@ -144,7 +144,7 @@ public class TwitterTest extends TestCase {
         ExtentReport.test.log(LogStatus.PASS,"special char & space assertion for hastags_count array Passed.");
 
         driver.get("http://cgi-lib.berkeley.edu/ex/fup.html");
-        driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/userTest.json");
+        driver.findElement(By.xpath("//input[@type='file']")).sendKeys(System.getProperty("user.dir") + "/tweeterStepIn.json");
         driver.findElement(By.xpath("//input[@value='Press']")).click();
         String msg = driver.findElement(By.xpath("/html/body/p[1]")).getText();
         Assert.assertEquals(msg, "You've uploaded a file. Your notes on the file were:");

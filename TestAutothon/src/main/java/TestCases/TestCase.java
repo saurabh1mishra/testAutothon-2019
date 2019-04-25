@@ -20,7 +20,7 @@ public class TestCase {
 
     void generateJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File fileName = new File("userTest.json");
+        File fileName = new File("tweeterStepIn.json");
         objectMapper.writeValue(fileName, finalJson);
         String jsonInString = objectMapper.writeValueAsString(finalJson);
         ExtentReport.test.log(LogStatus.INFO,"final josn is \n" + jsonInString);
