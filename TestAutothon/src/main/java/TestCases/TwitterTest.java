@@ -14,6 +14,7 @@ import model.Twitter.TweetData;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.seleniumhq.jetty9.util.PatternMatcher;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -34,8 +35,8 @@ import java.util.regex.Pattern;
 
 public class TwitterTest extends TestCase {
 
-    ObjectUtils stepinPage;
-    ObjectUtils fileUpload;
+    private ObjectUtils stepinPage;
+    private ObjectUtils fileUpload;
     private static org.apache.log4j.Logger log = Logger.getLogger(TwitterTest.class.getName());
     private WebDriver driver;
 
@@ -43,6 +44,7 @@ public class TwitterTest extends TestCase {
     public void initSuite(ITestContext testContext) throws IOException {
         if (testContext != null)
             System.getProperties().putAll(testContext.getCurrentXmlTest().getAllParameters());
+        assert testContext != null;
         ExtentReport.test = ExtentReport.reports.startTest(testContext.getCurrentXmlTest().getName());
         ExtentReport.test.log(LogStatus.INFO, testContext.getCurrentXmlTest().getName() + "test is started");
 
@@ -67,14 +69,15 @@ public class TwitterTest extends TestCase {
         driver.get("https://twitter.com/stepin_forum");
 
         stepinPage = new ObjectUtils(driver, "stepinPage");
-
+        List<String> groupsList = new ArrayList<>();
+        List<WebElement> groups = stepinPage.getListOfEelments("account_groups");
+        groups.forEach(i -> groupsList.add(i.getText()));
         String name_first = stepinPage.getElement("name_first").getText();
         stepinPage.getElement("account_group").click();
 
         String handle_name_first = stepinPage.getElement("handle_name_first").getText();
         String following_count_first = stepinPage.getElement("following_count_first").getText();
         String followers_count_first = stepinPage.getElement("followers_count_first").getText();;
-
 
         log("Name of the first people to follow:" + name_first);
         log("Handle Name of the first people to follow:" + handle_name_first);
@@ -89,11 +92,9 @@ public class TwitterTest extends TestCase {
         String name_second = stepinPage.getElement("name_second").getText();
         stepinPage.getElement("account_group2").click();
 
-
         String handle_name_second = stepinPage.getElement("handle_name_second").getText();
         String following_count_second = stepinPage.getElement("following_count_second").getText();
         String followers_count_second = stepinPage.getElement("followers_count_second").getText();
-
 
         log("Name of the second to follow:" + name_second);
         log("Handle Name of the second people to follow:" + handle_name_second);
@@ -125,13 +126,18 @@ public class TwitterTest extends TestCase {
 
         getFilterJsonData();
         generateJson();
-
         // assert that there are only three biographies
         Assert.assertEquals(biographiesList.size(),3);
         //assert 10 hashtags are present
         int hastags_count = finalJson.getTop_10_hashtag().size();
         Assert.assertEquals(hastags_count,10);
         ExtentReport.test.log(LogStatus.PASS,"hastags_count array size assertion passed.");
+        Assert.assertEquals(finalJson.getBiographies().get(0).getName(),name_first);
+        ExtentReport.test.log(LogStatus.PASS,"Biographies name assertion passed for first array.");
+        Assert.assertEquals(finalJson.getBiographies().get(1).getName(),name_second);
+        ExtentReport.test.log(LogStatus.PASS,"Biographies name assertion passed for secound array.");
+        Assert.assertEquals(finalJson.getBiographies().get(2).getName(),name_third);
+        ExtentReport.test.log(LogStatus.PASS,"Biographies name assertion passed for thrid array..");
 
         Pattern p = Pattern.compile("/([a-zA-Z0-9])(?!.*[<>'\"/;`%$&#])(\\s)/i");
         Matcher m = p.matcher(Top_10_hashtagList.toString());
