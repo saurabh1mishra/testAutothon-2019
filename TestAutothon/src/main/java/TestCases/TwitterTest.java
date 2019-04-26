@@ -75,21 +75,19 @@ public class TwitterTest extends TestCase {
         String following_count_first = stepinPage.getElement("following_count_first").getText();
         String followers_count_first = stepinPage.getElement("followers_count_first").getText();;
 
-        log.info("Name of the first people to follow:" + name_first);
-        log.info("Handle Name of the first people to follow:" + handle_name_first);
-        log.info("Following count of the first people:" + following_count_first);
-        log.info("Followers of the first people:" + followers_count_first);
 
-        Biographies biographiesfirst = new Biographies();
-        biographiesfirst.setName(name_first);
-        biographiesfirst.setHandel_name(handle_name_first);
-        biographiesfirst.setFollower_count(followers_count_first);
-        biographiesfirst.setFollowing_count(following_count_first);
+        log("Name of the first people to follow:" + name_first);
+        log("Handle Name of the first people to follow:" + handle_name_first);
+        log("Following count of the first people:" + following_count_first);
+        log("Followers of the first people:" + followers_count_first);
+
+        Biographies biographiesfirst = setBiograpth(name_first,handle_name_first,followers_count_first,following_count_first);
 
         driver.navigate().back();
+
         //To fetch Second profile details
         String name_second = stepinPage.getElement("name_second").getText();
-        stepinPage.getElement("account_group").click();
+        stepinPage.getElement("account_group2").click();
 
 
         String handle_name_second = stepinPage.getElement("handle_name_second").getText();
@@ -97,35 +95,27 @@ public class TwitterTest extends TestCase {
         String followers_count_second = stepinPage.getElement("followers_count_second").getText();
 
 
-        log.info("Name of the first second to follow:" + name_second);
-        log.info("Handle Name of the second people to follow:" + handle_name_second);
-        log.info("Following count of the second people:" + following_count_second);
-        log.info("Followers of the second people:" + followers_count_second);
+        log("Name of the second to follow:" + name_second);
+        log("Handle Name of the second people to follow:" + handle_name_second);
+        log("Following count of the second people:" + following_count_second);
+        log("Followers of the second people:" + followers_count_second);
 
-        Biographies biographiesSec = new Biographies();
-        biographiesSec.setName(name_second);
-        biographiesSec.setHandel_name(handle_name_second);
-        biographiesSec.setFollower_count(followers_count_second);
-        biographiesSec.setFollowing_count(following_count_second);
+        Biographies biographiesSec = setBiograpth(name_second,name_second,followers_count_second,following_count_second);
 
         driver.navigate().back();
         String name_third = stepinPage.getElement("name_third").getText();
-        stepinPage.getElement("account_group").click();
+        stepinPage.getElement("account_group3").click();
 
         String handle_name_third = stepinPage.getElement("handle_name_third").getText();
         String following_count_third = stepinPage.getElement("following_count_third").getText();
         String followers_count_third = stepinPage.getElement("followers_count_third").getText();
 
-        log.info("Name of the first second to follow:" + name_third);
-        log.info("Handle Name of the second people to follow:" + handle_name_third);
-        log.info("Following count of the second people:" + following_count_third);
-        log.info("Followers of the second people:" + followers_count_third);
+        log("Name of the  third to follow:" + name_third);
+        log("Handle Name of the thrid people to follow:" + handle_name_third);
+        log("Following count of the third people:" + following_count_third);
+        log("Followers of the third people:" + followers_count_third);
 
-        Biographies biographiesThird = new Biographies();
-        biographiesThird.setName(name_third);
-        biographiesThird.setHandel_name(handle_name_third);
-        biographiesThird.setFollower_count(followers_count_third);
-        biographiesThird.setFollowing_count(following_count_third);
+        Biographies biographiesThird =  setBiograpth(name_third,handle_name_third,followers_count_third,following_count_third);
 
         List<Biographies> biographiesList = new ArrayList<>();
         biographiesList.add(biographiesfirst);
@@ -163,5 +153,20 @@ public class TwitterTest extends TestCase {
     public void tearDown() {
         driver.quit();
     }
+
+    private void log(String logMsg){
+        log.info(logMsg);
+        ExtentReport.test.log(LogStatus.INFO,logMsg);
+    }
+
+    private Biographies setBiograpth(String name, String handle_name,String followers_count, String following_count){
+        Biographies biographies= new Biographies();
+        biographies.setName(name);
+        biographies.setHandel_name(handle_name);
+        biographies.setFollower_count(followers_count);
+        biographies.setFollowing_count(following_count);
+        return biographies;
+    }
+
 
 }

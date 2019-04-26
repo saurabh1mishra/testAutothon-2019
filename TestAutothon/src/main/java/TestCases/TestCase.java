@@ -56,6 +56,8 @@ public class TestCase {
         });
 
         log.info("sorted HashTag is " + list);
+        ExtentReport.test.log(LogStatus.INFO,"sorted HashTag is " + list);
+
         Iterator<Map.Entry<String, Integer>> listItretor = list.iterator();
 
         for (int i = 0; i < 10; i++) {
@@ -73,5 +75,14 @@ public class TestCase {
         finalJson.setTop_10_hashtag(Top_10_hashtagList);
         finalJson.setTop_retweet_count(Max_Count);
         finalJson.setTop_like_count(Highest_like);
+    }
+
+    public static <T extends Comparable> boolean isSorted(List<T> listOfT) {
+        T previous = null;
+        for (T t: listOfT) {
+            if (previous != null && t.compareTo(previous) < 0) return false;
+            previous = t;
+        }
+        return true;
     }
 }
